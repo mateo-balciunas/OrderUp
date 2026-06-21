@@ -1,0 +1,87 @@
+datasource db {
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Organization {
+    id  String  @id @default(uuid())
+    name    String
+    createdAt   DateTime    @default(now())
+    users   User[]
+    vendors Vendor[]
+    items   Item[]
+    audits  Audit[]
+}
+
+model User {
+    id  String  @id @default(uuid())
+    email   String  @unique
+    password    String
+    role    String  // "Owner", "Manager", "Operator"
+    organizationId  String
+    organization    Organization @relation(fields: [organizationId], references: [id])
+    audits  Audit[]
+    createdAt   DateTime    @default(now())
+}
+
+model Vendor {
+    id  String  @id @default(uuid())
+    name    String
+    email   String?
+    phone   String?
+    createdAt   DateTime    @default(now())
+    organizationId  String
+    organization    Organization    @relation(fields: [organizationId], references: [id])
+    items   Item[]
+    orders Order[]
+}
+
+model Item {
+    id  String  @id @default(uuid())
+    barcode String?
+    name    String
+    unit    String
+    parStock    Float //Nivel Optimo Deseado
+    currentStock    Float
+    createdAt   DateTime    @default(now())
+    vendorId String
+    vendor   Vendor  @relation(fields: [vendorId], references: [id])
+    organizationId  String
+    organization    Organization    @relation(fields: [organizationId], references: [id])
+    orderLines  OrderLine[]
+}
+
+model Audit {
+    id  String  @id @default(uuid())
+    organizationId  String
+    organization    Organization    @relation(fields: [organizationId], references: [id])
+    userId  String
+    user    User    @relation(fields: [userId], references: [id])
+    createdAt   DateTime    @default(now())
+    snapshot    Json    //Almacena conteo fisico en json {item_id: cantidad}
+    orders  Order[]
+}
+
+model Order {
+    id  String  @id @default(uuid())
+    vendorId    String
+    vendor  Vendor  @relation(fields: [vendorId], references: [id])
+    auditId String
+    audit   Audit   @relation(fields: [auditId], references: [id])
+    status  String  // "PENDING", "SENT", "CANCELLED"
+    createdAt   DateTime    @default(now())
+    lines   OrderLine[]
+}
+
+model OrderLine {
+    id  String  @id @default(uuid())
+    orderId String
+    order   Order   @relation(fields: [orderId], references: [id])
+    itemId  String
+    item    Item    @relation(fields: [itemId], references: [id])
+    quantity    Float // Calculado: parStock - currentStock
+}
+
