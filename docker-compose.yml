@@ -17,18 +17,19 @@ services:
       timeout: 5s
       retries: 5
   app:
-    container_name: orderup_app
+    container_name: orderup_api
     restart: unless-stopped
     image: node:22-alpine
     working_dir: /app
     ports:
-      - 3000:3000
+      - "3000:3000"
     volumes:
       - .:/app #Bind mount the current directory to the container
       - /app/node_modules #Exclude node_modules from the container
     environment:
       NODE_ENV: ${NODE_ENV}
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database_postgres:5432/${POSTGRES_DB}?schema=public"
+      PORT: 3000
     depends_on:
       database_postgres:
         condition: service_healthy
