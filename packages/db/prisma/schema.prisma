@@ -1,0 +1,136 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Organization {
+    id   String @id @default(uuid())
+    name String @unique
+    plan String @default("basic")
+
+    createdAt DateTime     @default(now())
+    updatedAt DateTime     @updatedAt
+    orders    Order[]
+    users     Membership[]
+
+    @@map("organizations")
+}
+
+model User {
+    id    String @id @default(uuid())
+    email String @unique
+    name  String
+
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
+    memberships Membership[]
+
+    @@map("users")
+}
+
+model Membership {
+    id             String @id @default(uuid())
+    userId         String
+    organizationId String
+    role           String @default("operator")
+
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+    user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, organizationId])
+    @@map("memberships")
+}
+
+model Order {
+    id             String @id @default(uuid())
+    organizationId String
+
+    externalRef String
+    channelId   String
+
+    status   String  @default("received")
+    total    Decimal @db.Decimal(12, 2)
+    priority Int     @default(0)
+
+    metadata Json @default("{}")
+
+    createdAt     DateTime             @default(now())
+    updatedAt     DateTime             @updatedAt
+    organization  Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+    lines         OrderLine[]
+    statusHistory OrderStatusHistory[]
+
+    @@unique([organizationId, externalRef, channelId])
+    @@index([organizationId, status])
+    @@map("orders")
+}
+
+model OrderLine {
+    id      String @id @default(uuid())
+    orderId String
+
+    sku       String
+    quantity  Decimal @db.Decimal(10, 2)
+    unit      String  @default("pcs")
+    unitPrice Decimal @db.Decimal(12, 2)
+    total     Decimal @db.Decimal(12, 2)
+
+    metadata Json @default("{}")
+
+    createdAt DateTime @default(now())
+    order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+    @@map("order_lines")
+}
+
+model OrderStatusHistory {
+    id      String @id @default(uuid())
+    orderId String
+
+    previousStatus String?
+    newStatus      String
+    reason         String
+
+    userId       String?
+    automationId String?
+
+    metadata Json @default("{}")
+
+    createdAt DateTime @default(now())
+    order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+    @@index([orderId, createdAt])
+    @@map("order_status_history")
+}
+
+model ChannelConnection {
+    id             String @id @default(uuid())
+    organizationId String
+
+    channelType String
+    name        String
+
+    config Json
+
+    isActive Boolean @default(true)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([organizationId, channelType])
+    @@map("channel_connections")
+}
+
+//TODO: ADD AUTOMATION MODELS
+
+//TODO: AutomationRule
+
+//TODO: AutomationRun
+
+//TODO: RawInboundEvent
