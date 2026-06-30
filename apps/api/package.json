@@ -10,6 +10,7 @@
         "lint": "echo 'Linting not configured yet'"
     },
     "dependencies": {
+        "@orderup/db": "*",
         "@orderup/shared": "*",
         "cors": "^2.8.6",
         "express": "^5.2.1"

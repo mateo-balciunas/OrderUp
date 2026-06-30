@@ -15,5 +15,7 @@
       "noUnusedLocals": true,
       "noImplicitReturns": true,
       "resolveJsonModule": true,
+      "allowImportingTsExtensions": true,
+      "noEmit": true,
     },
   }
