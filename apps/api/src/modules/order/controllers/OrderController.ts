@@ -24,7 +24,7 @@ export class OrderController {
             return res.status(201).json(order)
 
         } catch( error ) {
-            next ( error );
+            return next ( error );
         }
     }
 
@@ -37,10 +37,10 @@ export class OrderController {
             if (!orderId || !organizationId) {
                 return res.status(400).json({ message: 'OrderId and OrganizationId are required', status: 'error' });
             }
-            const order = await orderService.getOrder(orderId, organizationId);
+            const order = await orderService.getOrder(orderId as string, organizationId as string);
             return res.status(200).json(order);
         } catch ( error ){
-            next( error );
+            return next( error );
         }
     };
 
@@ -53,10 +53,11 @@ export class OrderController {
                 return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             };
             const { status } = req.query;
-            const orders = await orderService.listOrders(organizationId, { status: status as OrderTypes.OrderStatus });
+            const statusValue = Array.isArray(status) ? status[0] : status;
+            const orders = await orderService.listOrders(organizationId as string, { status: statusValue as OrderTypes.OrderStatus });
             return res.status(200).json(orders);
         } catch( error ){
-            next( error );
+            return next( error );
         }
     }
 
@@ -70,10 +71,10 @@ export class OrderController {
             };
             const data = req.body;
 
-            const updateOrder = await orderService.updateOrderStatus(orderId, organizationId, data);
+            const updateOrder = await orderService.updateOrderStatus(orderId as string, organizationId as string, data);
             return res.status(200).json(updateOrder);
         } catch( error ){
-            next( error );
+            return next( error );
         }
     }
 
@@ -86,10 +87,10 @@ export class OrderController {
                 return res.status(400).json({ message: 'OrderId and OrganizationId are required', status: 'error' });
             };
 
-            const deleteOrder = await orderService.deleteOrder( orderId, organizationId);
+            await orderService.deleteOrder( orderId as string, organizationId as string);
             return res.status(204);
         } catch( error ){
-            next( error );
+            return next( error );
         }
     }
 
