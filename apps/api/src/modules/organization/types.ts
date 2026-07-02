@@ -1,3 +1,4 @@
+import { MembershipResponse } from "../membership/types.ts";
 import { OrderResponse } from "../order/types.ts";
 import { UserResponse } from "../user/types.ts";
 
@@ -14,7 +15,7 @@ export interface OrganizationResponse {
     plan: 'basic' | 'pro';
     createdAt: Date;
     updatedAt: Date;
-    users: UserResponse[];
+    users: MembershipResponse[];
     orders: OrderResponse[];
 }
 
@@ -31,7 +32,7 @@ export interface UpdateOrganizationResponse {
     plan: 'basic' | 'pro';
     createdAt: Date;
     updatedAt: Date;
-    users: UserResponse[];
+    users: MembershipResponse[];
     orders: OrderResponse[];
 }
 
@@ -50,7 +51,7 @@ export interface GetOrganizationResponse {
     plan: 'basic' | 'pro';
     createdAt: Date;
     updatedAt: Date;
-    users: UserResponse[];
+    users: MembershipResponse[];
     orders: OrderResponse[];
 }
 
