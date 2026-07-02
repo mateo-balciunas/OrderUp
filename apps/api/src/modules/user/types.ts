@@ -1,9 +1,10 @@
 import { MembershipResponse } from "../membership/types.ts";
 
-//CreateUserRequest -- GET PETITION
+//CreateUserRequest -- POST PETITION
 export interface CreateUserRequest {
     email: string;
     name: string;
+    password: string;
 }
 
 //UserResponse -- RESPONSE TO CreateUserRequest

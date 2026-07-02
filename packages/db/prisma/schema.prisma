@@ -4,12 +4,23 @@ generator client {
 
 datasource db {
     provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum Plan {
+    basic
+    pro
+}
+
+enum Role {
+    admin
+    operator
 }
 
 model Organization {
     id   String @id @default(uuid())
     name String @unique
-    plan String @default("basic")
+    plan Plan @default(basic)
 
     createdAt DateTime     @default(now())
     updatedAt DateTime     @updatedAt
@@ -36,7 +47,7 @@ model Membership {
     id             String @id @default(uuid())
     userId         String
     organizationId String
-    role           String @default("operator")
+    role           Role @default(operator)
 
     createdAt    DateTime     @default(now())
     updatedAt    DateTime     @updatedAt
