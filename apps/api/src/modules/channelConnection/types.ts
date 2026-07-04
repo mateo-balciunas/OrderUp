@@ -1,11 +1,11 @@
-
+import type { JsonValue, InputJsonValue } from "@orderup/db";
 
 //CreateChannelConnectionRequest -- POST PETITION
 export interface CreateChannelConnectionRequest {
     organizationId: string;
     channelType: string;
     name: string;
-    config: JSON;
+    config: InputJsonValue;
     isActive: boolean;
 }
 
@@ -15,7 +15,7 @@ export interface ChannelConnectionResponse {
     organizationId: string;
     channelType: string;
     name: string;
-    config: JSON;
+    config: JsonValue;
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -25,7 +25,7 @@ export interface ChannelConnectionResponse {
 export interface UpdateChannelConnectionRequest {
     channelType?: string;
     name?: string;
-    config?: JSON;
+    config?: InputJsonValue;
     isActive?: boolean;
 }
 
@@ -35,7 +35,7 @@ export interface UpdateChannelConnectionResponse {
     organizationId: string;
     channelType: string;
     name: string;
-    config: JSON;
+    config: JsonValue;
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -52,7 +52,7 @@ export interface GetChannelConnectionResponse {
     organizationId: string;
     channelType: string;
     name: string;
-    config: JSON;
+    config: JsonValue;
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;

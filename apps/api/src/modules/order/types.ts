@@ -24,6 +24,7 @@ export interface OrderResponse {
     metadata: JsonValue;
     createdAt: Date;
     updatedAt: Date;
+    lines: OrderLineResponse[];
 }
 
 //UpdateOrderStatusRequest -- PUT PETITION
@@ -101,7 +102,7 @@ export interface OrderLineResponse {
     id: string;
     sku: string;
     quantity: Decimal;
-    unit?: string;
+    unit: string;
     unitPrice: Decimal;
     total: Decimal; //quantity * unitPrice
     
