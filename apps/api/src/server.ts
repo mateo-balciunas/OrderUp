@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import { apiRouter } from './routes.ts';
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -25,6 +26,9 @@ app.get('/health', (req, res) => {
         requestId: req.id,
     });
 });
+
+//API ROUTES
+app.use('/api/v1', apiRouter);
 
 
 //TODO: ERROR HANDLER MIDDLEWARE
