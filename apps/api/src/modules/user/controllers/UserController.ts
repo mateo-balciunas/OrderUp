@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import * as UserTypes from '../types.js';
 import { UserService } from '../services/UserService.js';
 
 const userService = new UserService();
 
 export class UserController {
 
-    //POST /api/v1/users
+    //POST /api/v1/:organizationId/users
     async createUser(req: Request, res: Response, next: NextFunction) {
         try {
             //Extract and validate userId

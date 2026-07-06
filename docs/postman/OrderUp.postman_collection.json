@@ -1,0 +1,465 @@
+{
+  "info": {
+    "_postman_id": "69a65f47-fc12-402d-a4f5-b4ae32d98b3c",
+    "name": "OrderUp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53421110",
+    "_collection_link": "https://go.postman.co/collection/53421110-69a65f47-fc12-402d-a4f5-b4ae32d98b3c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Organizations",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Organization2\",\n    \"plan\": \"pro\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/organizations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "v1",
+                "organizations"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Organization1\",\n    \"plan\": \"basic\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/organizations/ba75cba4-6614-4fe6-8df7-76a730810662",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "ba75cba4-6614-4fe6-8df7-76a730810662"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Organization2\",\n    \"plan\": \"pro\"\n}"
+            },
+            "url": {
+              "raw": "{{url}}/organizations",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "organizations"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user1@test.com\",\n    \"name\": \"User1\",\n    \"password\": \"user1\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/ba75cba4-6614-4fe6-8df7-76a730810662/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "v1",
+                "ba75cba4-6614-4fe6-8df7-76a730810662",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user1@test.com\",\n    \"name\": \"User1\",\n    \"password\": \"user1\"\n}"
+            },
+            "url": {
+              "raw": "{{url}}/{{organizationId}}/users",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "{{organizationId}}",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/{{organizationId}}/users/{{userId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "{{organizationId}}",
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ChannelConnection",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"organizationId\": \"ba75cba4-6614-4fe6-8df7-76a730810662\",\n    \"channelType\": \"whatsapp\",\n    \"name\": \"WhatsApp Principal\",\n    \"config\": {\n        \"phoneNumberId\": \"123456789\",\n        \"accessToken\": \"token-test\"\n    },\n    \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/{{organizationId}}/channels",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "{{organizationId}}",
+                "channels"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/{{organizationId}}/channels/{{channelId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "{{organizationId}}",
+                "channels",
+                "{{channelId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"organizationId\": \"ba75cba4-6614-4fe6-8df7-76a730810662\",\n    \"externalRef\": \"ORD-001\",\n    \"channelId\": \"b715891c-fe90-49eb-96c5-e6f7eea13a50\",\n    \"status\": \"received\",\n    \"metadata\": {},\n    \"priority\": 0,\n    \"lines\": [\n        {\n        \"sku\": \"PROD-001\",\n        \"quantity\": 5,\n        \"unit\": \"pcs\",\n        \"unitPrice\": 10.50\n        },\n        {\n        \"sku\": \"PROD-002\",\n        \"quantity\": 2,\n        \"unit\": \"kg\",\n        \"unitPrice\": 25.00\n        }\n    ] \n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/{{organizationId}}/orders/",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "{{organizationId}}",
+                "orders",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/{{organizationId}}/orders/{{orderId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "{{organizationId}}",
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Memberships",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"e6f0ee7e-0b7c-4212-ac15-752fc5a137cd\",\n    \"organizationId\": \"ba75cba4-6614-4fe6-8df7-76a730810662\",\n    \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/memberships",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "memberships"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": ""
+    },
+    {
+      "key": "organizationId",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "channelId",
+      "value": ""
+    },
+    {
+      "key": "orderId",
+      "value": ""
+    },
+    {
+      "key": "membershipId",
+      "value": ""
+    }
+  ]
+}

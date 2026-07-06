@@ -1,6 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { apiRouter } from './routes.ts';
+import { apiRouter } from './routes.js';
 
 const app: Express = express();
 const port = process.env.PORT || 3000;

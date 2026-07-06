@@ -104,10 +104,10 @@ export class UserService {
             data: {
                 email: email || user.email,
                 name: name || user.name,
-                password: password ? await bcrypt.hash(password, 10) : user.password,
-                createdAt: user.createdAt,
-                updatedAt: new Date(),
-                memberships: user.memberships
+                password: password ? await bcrypt.hash(password, 10) : user.password
+            },
+            include: {
+                memberships: true
             }
         });
 
@@ -124,7 +124,7 @@ export class UserService {
     // ============
     // DELETE USER
     // ============
-    async deleteUser( userId: string ): Promise<UserTypes.DeleteUserResponse> {
+    async deleteUser( userId: string ): Promise<UserTypes.DeleteUserRequest> {
         //Search for user
         const user = await prisma.user.findUnique({
             where: { id: userId },

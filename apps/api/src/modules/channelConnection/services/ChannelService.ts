@@ -1,5 +1,5 @@
 import * as ChannelConnectionTypes from "../types.js";
-import { InputJsonValue, JsonValue, prisma } from "@orderup/db";
+import { prisma } from "@orderup/db";
 
 export class ChannelService {
 
