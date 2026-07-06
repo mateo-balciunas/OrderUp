@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { userRouter } from "./modules/user/routes.ts";
-import { organizationRouter } from "./modules/organization/routes.ts";
-import { orderRouter } from "./modules/order/routes.ts";
-import { membershipRouter } from "./modules/membership/routes.ts";
-import { channelConnectionRouter } from "./modules/channelConnection/routes.ts";
+import { userRouter } from "./modules/user/routes.js";
+import { organizationRouter } from "./modules/organization/routes.js";
+import { orderRouter } from "./modules/order/routes.js";
+import { membershipRouter } from "./modules/membership/routes.js";
+import { channelConnectionRouter } from "./modules/channelConnection/routes.js";
 
 const router = Router();
 
-router.use('/api/v1', userRouter);
-router.use('/api/v1', organizationRouter);
-router.use('/api/v1', orderRouter);
-router.use('/api/v1', membershipRouter);
-router.use('/api/v1', channelConnectionRouter);
+router.use(userRouter);
+router.use(organizationRouter);
+router.use(orderRouter);
+router.use(membershipRouter);
+router.use(channelConnectionRouter);
 
 export { router as apiRouter };

@@ -21,7 +21,7 @@ export class ChannelConnectionController {
                 isActive
             }
             const channelConnection = await channelService.createChannelConnection( data );
-            return res.status(201).json(channelConnection);
+            return res.status(200).json(channelConnection);
 
         } catch( error ){
             return next( error );
@@ -32,12 +32,12 @@ export class ChannelConnectionController {
     async getChannelConnection( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate channelConnectionId
-            const { channelConnectionId, organizationId } = req.params;
-            if( !channelConnectionId || !organizationId ){
+            const { channelId, organizationId } = req.params;
+            if( !channelId || !organizationId ){
                 return res.status(400).json({ message: 'Channel connection ID and organization ID are required', status: 'error' });
             }
 
-            const channelConnection = await channelService.getChannelConnection( channelConnectionId as string);
+            const channelConnection = await channelService.getChannelConnection( channelId as string);
             return res.status(200).json(channelConnection);
 
         } catch( error ){
@@ -65,13 +65,13 @@ export class ChannelConnectionController {
     async updateChannelConnection( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate channelConnectionId
-            const { channelConnectionId, organizationId } = req.params;
-            if( !channelConnectionId || !organizationId ){
+            const { channelId, organizationId } = req.params;
+            if( !channelId || !organizationId ){
                 return res.status(400).json({ message: 'Channel connection ID and organization ID are required', status: 'error' });
             }
 
             const data = req.body;
-            const updatedChannelConnection = await channelService.updateChannelConnection( channelConnectionId as string, data );
+            const updatedChannelConnection = await channelService.updateChannelConnection( channelId as string, data );
             return res.status(200).json(updatedChannelConnection);
         } catch( error ){
             return next( error );
@@ -82,11 +82,11 @@ export class ChannelConnectionController {
     async deleteChannelConnection( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate channelConnectionId
-            const { channelConnectionId, organizationId } = req.params;
-            if( !channelConnectionId || !organizationId ){
+            const { channelId, organizationId } = req.params;
+            if( !channelId || !organizationId ){
                 return res.status(400).json({ message: 'Channel connection ID and organization ID are required', status: 'error' });
             }
-            await channelService.deleteChannelConnection( channelConnectionId as string);
+            await channelService.deleteChannelConnection( channelId as string);
             return res.status(204).send();
         } catch( error ){
             return next( error );

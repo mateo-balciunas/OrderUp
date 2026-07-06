@@ -1,36 +1,36 @@
 import { Router } from "express";
-import { UserController } from "./controllers/UserController.ts";
+import { UserController } from "./controllers/UserController.js";
 
 const router = Router();
 const userController = new UserController();
 
 //POST /api/v1/users
 router.post(
-    '/api/v1/users',
+    '/:organizationId/users',
     userController.createUser
 );
 
 //GET /api/v1/users/:userId
 router.get(
-    '/users/:userId',
+    '/:organizationId/users/:userId',
     userController.getUser
 );
 
 //GET /api/v1/users
 router.get(
-    '/users',
+    '/:organizationId/users',
     userController.listUsers
 );
 
 //PUT /api/v1/users/:userId
 router.put(
-    '/users/:userId',
+    '/:organizationId/users/:userId',
     userController.updateUser
 );
 
 //DELETE /api/v1/users/:userId
 router.delete(
-    '/users/:userId',
+    '/:organizationId/users/:userId',
     userController.deleteUser
 );
 
