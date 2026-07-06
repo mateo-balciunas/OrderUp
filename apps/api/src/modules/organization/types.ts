@@ -1,6 +1,5 @@
 import { MembershipResponse } from "../membership/types.ts";
 import { OrderResponse } from "../order/types.ts";
-import { UserResponse } from "../user/types.ts";
 
 //CreateOrganzationRequest -- POST PETITION
 export interface CreateOrganizationRequest {

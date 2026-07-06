@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import * as UserTypes from '../types.js';
 import { UserService } from '../services/UserService.js';
 
 const userService = new UserService();

@@ -25,7 +25,11 @@ export class OrganizationService {
             },
             include: {
                 users: true,
-                orders: true
+                orders: {
+                    include: {
+                        lines: true
+                    }
+                }
             }
         });
         return newOrganization;
@@ -41,7 +45,11 @@ export class OrganizationService {
             where: { id: organizationId },
             include: {
                 users: true,
-                orders: true
+                orders: {
+                    include: {
+                        lines: true
+                    }
+                }
             }
         });
 
@@ -64,7 +72,11 @@ export class OrganizationService {
             },
             include: {
                 users: true,
-                orders: true
+                orders: {
+                    include: {
+                        lines: true
+                    }
+                }
             },
             orderBy:{
                 createdAt: 'desc'
@@ -88,7 +100,11 @@ export class OrganizationService {
             where: { id: organizationId },
             include: {
                 users: true,
-                orders: true
+                orders: {
+                    include: {
+                        lines: true
+                    }
+                }
             }
         });
 
@@ -106,7 +122,11 @@ export class OrganizationService {
             },
             include: {
                 users: true,
-                orders: true
+                orders: {
+                    include: {
+                        lines: true
+                    }
+                }
             }
         });
 
