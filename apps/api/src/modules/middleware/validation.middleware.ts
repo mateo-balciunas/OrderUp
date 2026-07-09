@@ -17,15 +17,11 @@ import { ZodError, ZodSchema } from 'zod';
 export const validate = (schema: ZodSchema) => {
     return async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
         try {
-            const validated = await schema.parseAsync({
+            await schema.parseAsync({
                 body: req.body,
                 params: req.params,
                 query: req.query
             });
-
-            req.body = validated.body || req.body;
-            req.params = validated.params || req.params;
-            req.query = validated.query || req.query;
 
             next();
         } catch( error ){
