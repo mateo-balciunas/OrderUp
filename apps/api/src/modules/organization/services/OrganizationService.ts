@@ -1,5 +1,6 @@
 import * as OrganizationTypes from '../types.js';
 import { prisma } from '@orderup/db';
+import { ConflictError, NotFoundError  } from '../../../utils/errors.js';
 
 export class OrganizationService {
 
@@ -14,7 +15,7 @@ export class OrganizationService {
         });
 
         if( existingOrganization ){
-            throw new Error( 'Organization already exists' );
+            throw new ConflictError( 'Organization already exists' );
         }
 
         //Create organization
@@ -54,7 +55,7 @@ export class OrganizationService {
         });
 
         if( !organization ){
-            throw new Error( 'Organization not found' );
+            throw new NotFoundError( 'Organization not found' );
         }
         return organization;
     }
@@ -109,7 +110,7 @@ export class OrganizationService {
         });
 
         if( !organization ){
-            throw new Error( 'Organization not found' );
+            throw new NotFoundError( 'Organization not found' );
         }
 
         //Update organization
@@ -147,7 +148,7 @@ export class OrganizationService {
         });
 
         if( !organization ){
-            throw new Error( 'Organization not found' );
+            throw new NotFoundError( 'Organization not found' );
         }
         
         //Delete organization

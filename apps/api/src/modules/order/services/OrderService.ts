@@ -1,5 +1,6 @@
 import * as OrderTypes from '../types.js';
 import { prisma } from '@orderup/db';
+import { NotFoundError, ConflictError  } from '../../../utils/errors.js';
 
 
 export class OrderService {
@@ -22,7 +23,7 @@ export class OrderService {
             where: { organizationId: data.organizationId }
         });
         if (order) {
-            throw new Error('Order already exists');
+            throw new ConflictError('Order already exists');
         }
 
         //Calculate total
@@ -80,7 +81,7 @@ export class OrderService {
         });
 
         if (!order) {
-            throw new Error('Order not found');
+            throw new NotFoundError('Order not found');
         };
 
         return order;
@@ -123,7 +124,7 @@ export class OrderService {
             include: { lines: true, statusHistory: true },
         });
         if( !currentOrder ){
-            throw new Error('Order not found');
+            throw new NotFoundError('Order not found');
         };
         //Save previous status
         const previousStatus = currentOrder.status;
@@ -162,7 +163,7 @@ export class OrderService {
             where: { id: orderId, organizationId: organizationId }
         });
         if( !order ){
-            throw new Error( 'Order not found' );
+            throw new NotFoundError( 'Order not found' );
         };
 
         //Delete order

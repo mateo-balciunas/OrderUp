@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ChannelConnectionController } from "./controllers/ChannelConnectionController.js";
-import { validate } from "../middleware/validation.middleware.js";
+import { validate } from "../../middleware/validation.middleware.ts";
 import {
     createChannelConnectionSchema,
     getChannelConnectionSchema,

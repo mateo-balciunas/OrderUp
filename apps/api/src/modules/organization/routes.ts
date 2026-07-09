@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { OrganizationController } from "./controllers/OrganizationController.js";
-import { validate } from "../middleware/validation.middleware.js";
+import { validate } from "../../middleware/validation.middleware.ts";
 import {
     createOrganizationSchema,
     getOrganizationSchema,

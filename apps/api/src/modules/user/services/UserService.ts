@@ -1,6 +1,7 @@
 import * as UserTypes from '../types.js';
 import * as bcrypt from 'bcrypt';
 import { prisma } from '@orderup/db';
+import { ConflictError, NotFoundError  } from '../../../utils/errors.js';
 
 export class UserService {
 
@@ -16,7 +17,7 @@ export class UserService {
             }
         });
         if( existingUser ){
-            throw new Error('User already exists');
+            throw new ConflictError('User already exists');
         }
 
         //Hash password
@@ -55,7 +56,7 @@ export class UserService {
         });
 
         if( !user ) {
-            throw new Error('User not found');
+            throw new NotFoundError('User not found');
         }
 
         return user;
@@ -96,7 +97,7 @@ export class UserService {
         });
 
         if( !user ){
-            throw new Error( 'User not found' );
+            throw new NotFoundError( 'User not found' );
         }
         //Update user
         const updateUser = await prisma.user.update({
@@ -133,7 +134,7 @@ export class UserService {
             }
         });
         if( !user ) {
-            throw new Error( 'User not found' );
+            throw new NotFoundError( 'User not found' );
         }
 
         //Delete user
