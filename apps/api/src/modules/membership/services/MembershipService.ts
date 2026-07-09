@@ -1,5 +1,6 @@
 import * as MembershipTypes from "../types.js";
 import { prisma } from "@orderup/db";
+import { NotFoundError  } from '../../../utils/errors.js';
 
 export class MembershipService {
 
@@ -16,7 +17,7 @@ export class MembershipService {
         });
 
         if( !user || !organization){
-            throw new Error( 'User or organization not found' );
+            throw new NotFoundError( 'User or organization not found' );
         };
 
         //Create membership
@@ -41,7 +42,7 @@ export class MembershipService {
         });
 
         if( !membership ){
-            throw new Error( 'Membership not found' );
+            throw new NotFoundError( 'Membership not found' );
         };
 
         return membership;
@@ -80,7 +81,7 @@ export class MembershipService {
             });
             return updatedMembership;
         } catch (error) {
-            throw new Error('Membership not found');
+            throw new NotFoundError('Membership not found');
         }
     }
 
@@ -93,7 +94,7 @@ export class MembershipService {
             where: { id: membershipId }
         });
         if( !membership ){
-            throw new Error( 'Membership not found' );
+            throw new NotFoundError( 'Membership not found' );
         };
 
         //Delete membership

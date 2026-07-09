@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { OrderController } from "./controllers/OrderController.js";
-import { validate } from "../middleware/validation.middleware.js";
+import { validate } from "../../middleware/validation.middleware.ts";
 import {
     createOrderSchema,
     getOrderSchema,

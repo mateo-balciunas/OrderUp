@@ -1,6 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { apiRouter } from './routes.js';
+import { errorHandler } from './middleware/errorHandler.middleware.js';
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -30,8 +31,9 @@ app.get('/health', (req, res) => {
 //API ROUTES
 app.use('/api/v1', apiRouter);
 
+//ERROR HANDLER MIDDLEWARE
+app.use(errorHandler);
 
-//TODO: ERROR HANDLER MIDDLEWARE
 //TODO: GRACEFUL SHUTDOWN
 
 app.listen(port, () => {

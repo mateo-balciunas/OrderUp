@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { UserController } from "./controllers/UserController.js";
-import { validate } from "../middleware/validation.middleware.js";
+import { validate } from "../../middleware/validation.middleware.ts";
 import {
     createUserSchema,
     getUserSchema,

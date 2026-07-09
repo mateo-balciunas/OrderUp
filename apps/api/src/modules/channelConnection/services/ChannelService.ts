@@ -1,5 +1,6 @@
 import * as ChannelConnectionTypes from "../types.js";
 import { prisma } from "@orderup/db";
+import { NotFoundError  } from '../../../utils/errors.js';
 
 export class ChannelService {
 
@@ -12,7 +13,7 @@ export class ChannelService {
             where: { id: data.organizationId }
         });
         if( !organization ){
-            throw new Error( 'Organization not found' );
+            throw new NotFoundError( 'Organization not found' );
         }
 
         //Create channel connection
@@ -38,7 +39,7 @@ export class ChannelService {
             where: { id: channelConnectionId }
         });
         if( !channelConnection ){
-            throw new Error( 'Channel connection not found' );
+            throw new NotFoundError( 'Channel connection not found' );
         }
 
         return channelConnection;
@@ -53,7 +54,7 @@ export class ChannelService {
             where: { id: organizationId }
         });
         if( !organization ){
-            throw new Error( 'Organization not found' );
+            throw new NotFoundError( 'Organization not found' );
         }
         
         //List channel connections
@@ -72,7 +73,7 @@ export class ChannelService {
             where: { id: channelConnectionId }
         });
         if( !channelConnection ){
-            throw new Error( 'Channel connection not found' );
+            throw new NotFoundError( 'Channel connection not found' );
         }
 
         //Update channel connection
@@ -97,7 +98,7 @@ export class ChannelService {
             where: { id: channelConnectionId }
         });
         if( !channelConnection ){
-            throw new Error( 'Channel connection not found' );
+            throw new NotFoundError( 'Channel connection not found' );
         }
 
         //Delete channel connection
