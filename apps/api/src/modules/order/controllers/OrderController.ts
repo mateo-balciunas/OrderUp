@@ -10,7 +10,7 @@ export class OrderController {
     async createOrder( req: Request, res: Response, next: NextFunction) {
         try {
             //Extract data and validate
-            const { organizationId } = req.params; 
+            const organizationId = req.user?.organizationId; 
             if ( !organizationId) {
                 return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             }
@@ -32,8 +32,8 @@ export class OrderController {
     async getOrder( req: Request, res: Response, next: NextFunction){
         try {
             //Extract data and validate
-            const { orderId, organizationId } = req.params;
-
+            const { orderId } = req.params;
+            const organizationId = req.user?.organizationId;
             if (!orderId || !organizationId) {
                 return res.status(400).json({ message: 'OrderId and OrganizationId are required', status: 'error' });
             }
@@ -48,7 +48,7 @@ export class OrderController {
     async listOrder( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract data and validate
-            const { organizationId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !organizationId ) {
                 return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             };
@@ -65,7 +65,8 @@ export class OrderController {
     async updateOrderStatus( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract data and validate
-            const { orderId, organizationId } = req.params;
+            const { orderId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !orderId || !organizationId ){
                 return res.status(400).json({ message: 'OrderId and OrganizationId are required', status: 'error'});
             };
@@ -82,7 +83,8 @@ export class OrderController {
     async deleteOrder( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract data and validate
-            const { orderId, organizationId } = req.params;
+            const { orderId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !orderId || !organizationId ){
                 return res.status(400).json({ message: 'OrderId and OrganizationId are required', status: 'error' });
             };

@@ -23,7 +23,7 @@ export class OrganizationController {
     async getOrganization( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate organizationId
-            const { organizationId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !organizationId ){
                 return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             }
@@ -49,7 +49,7 @@ export class OrganizationController {
     async updateOrganization( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate organizationId
-            const { organizationId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !organizationId ){
                 return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             }
@@ -67,7 +67,7 @@ export class OrganizationController {
     async deleteOrganization( req: Request, res: Response, next: NextFunction) {
         try {
             //Extract and validate organizationId
-            const { organizationId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !organizationId ){
                 return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             }

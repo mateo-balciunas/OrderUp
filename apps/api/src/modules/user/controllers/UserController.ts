@@ -9,7 +9,7 @@ export class UserController {
     async createUser(req: Request, res: Response, next: NextFunction) {
         try {
             //Extract and validate userId
-            const { organizationId } = req.params;
+            const organizationId  = req.user?.organizationId;
             if( !organizationId ){
                 return res.status(400).json({ message: 'ORganization ID is required', status: 'error' });
             }

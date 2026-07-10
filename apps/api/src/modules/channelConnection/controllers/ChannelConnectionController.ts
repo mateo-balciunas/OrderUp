@@ -8,7 +8,8 @@ export class ChannelConnectionController {
     //POST /api/v1/:organizationId/channels
     async createChannelConnection( req: Request, res: Response, next: NextFunction ) {
         try {
-            const { organizationId, channelType, name, config, isActive } = req.body;
+            const { channelType, name, config, isActive } = req.body;
+            const organizationId = req.user?.organizationId;
             if( !organizationId || !channelType || !name || !config || !isActive ){
                 return res.status(400).json({ message: 'All fields are required', status: 'error' });
             }
@@ -32,7 +33,8 @@ export class ChannelConnectionController {
     async getChannelConnection( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate channelConnectionId
-            const { channelId, organizationId } = req.params;
+            const { channelId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !channelId || !organizationId ){
                 return res.status(400).json({ message: 'Channel connection ID and organization ID are required', status: 'error' });
             }
@@ -48,7 +50,7 @@ export class ChannelConnectionController {
     //GET /api/v1/:organizationId/channels
     async listChannelConnections( req: Request, res: Response, next: NextFunction ){
         try {
-            const { organizationId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !organizationId ){
                 return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             }
@@ -65,7 +67,8 @@ export class ChannelConnectionController {
     async updateChannelConnection( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate channelConnectionId
-            const { channelId, organizationId } = req.params;
+            const { channelId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !channelId || !organizationId ){
                 return res.status(400).json({ message: 'Channel connection ID and organization ID are required', status: 'error' });
             }
@@ -82,7 +85,8 @@ export class ChannelConnectionController {
     async deleteChannelConnection( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate channelConnectionId
-            const { channelId, organizationId } = req.params;
+            const { channelId } = req.params;
+            const organizationId = req.user?.organizationId;
             if( !channelId || !organizationId ){
                 return res.status(400).json({ message: 'Channel connection ID and organization ID are required', status: 'error' });
             }

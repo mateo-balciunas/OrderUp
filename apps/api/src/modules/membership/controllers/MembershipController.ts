@@ -8,7 +8,8 @@ export class MembershipController {
     //POST /api/v1/memberships
     async createMembership( req: Request, res: Response, next: NextFunction ){
         try {
-            const { userId, organizationId, role } = req.body;
+            const { userId, role } = req.body;
+            const organizationId = req.user?.organizationId;
             if( !userId || !organizationId || !role ){
                 return res.status(400).json({ message: 'User ID, organization ID and role are required', status: 'error' });
             }
@@ -38,8 +39,8 @@ export class MembershipController {
     //GET /api/v1/memberships
     async listMemberships( req: Request, res: Response, next: NextFunction ){
         try {
-            const { userId, organizationId } = req.query;
-
+            const { userId } = req.query;
+            const organizationId = req.user?.organizationId;
             const memberships = await membershipService.listMemberships({ 
                 userId: userId as string || undefined,
                 organizationId: organizationId as string || undefined
