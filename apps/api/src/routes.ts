@@ -9,11 +9,12 @@ import { authenticate } from "./middleware/auth.middleware.js";
 
 const router = Router();
 
+router.use('/auth', authRoutes);
+
 router.use(authenticate, userRouter);
 router.use(authenticate, organizationRouter);
 router.use(authenticate,orderRouter);
 router.use(authenticate, membershipRouter);
 router.use(authenticate, channelConnectionRouter);
-router.use(authRoutes);
 
 export { router as apiRouter };
