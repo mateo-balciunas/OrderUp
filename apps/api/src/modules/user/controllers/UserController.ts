@@ -11,7 +11,7 @@ export class UserController {
             //Extract and validate userId
             const organizationId  = req.user?.organizationId;
             if( !organizationId ){
-                return res.status(400).json({ message: 'ORganization ID is required', status: 'error' });
+                return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
             }
             
             //Extract and validate user data
@@ -20,7 +20,7 @@ export class UserController {
                 return res.status(400).json({ message: 'Email, name and password are required', status: 'error' });
             }
 
-            const newUser = await userService.createUser( { email, name, password });
+            const newUser = await userService.createUser( organizationId as string, { email, name, password });
             return res.status(201).json(newUser);
         } catch( error ){
             return next( error );
@@ -31,12 +31,16 @@ export class UserController {
     async getUser( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate organizationId and userId
+            const organizationId  = req.user?.organizationId;
+            if( !organizationId ){
+                return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
+            }
             const { userId } = req.params;
             if( !userId ){
                 return res.status(400).json({ message: 'User ID are required', status: 'error' });
             }
 
-            const getUser = await userService.getUser( userId as string );
+            const getUser = await userService.getUser( organizationId as string, userId as string );
             return res.status(200).json(getUser);
 
         } catch( error ){
@@ -47,8 +51,12 @@ export class UserController {
     //GET /api/v1/users
     async listUsers( req: Request, res: Response, next: NextFunction ) {
         try {
+            const organizationId  = req.user?.organizationId;
+            if( !organizationId ){
+                return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
+            }
 
-            const listUsers = await userService.listUsers();
+            const listUsers = await userService.listUsers( organizationId as string );
             return res.status(200).json({
                 users: listUsers.users,
                 total: listUsers.total,
@@ -65,6 +73,10 @@ export class UserController {
     async updateUser( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate organizationId and userId
+            const organizationId  = req.user?.organizationId;
+            if( !organizationId ){
+                return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
+            }
             const  { userId } = req.params;
             if( !userId ){
                 return res.status(400).json({ message: 'user ID are required' , status: 'error' });
@@ -72,7 +84,7 @@ export class UserController {
             //Extract and validate user data
             const { email, name, password } = req.body;
             
-            const updateUser = await userService.updateUser( userId as string, { email, name, password });
+            const updateUser = await userService.updateUser( organizationId as string, userId as string, { email, name, password });
             return res.status(200).json(updateUser);
 
         } catch( error ){
@@ -84,13 +96,17 @@ export class UserController {
     async deleteUser( req: Request, res: Response, next: NextFunction ){
         try {
             //Extract and validate organizationId and userId
+            const organizationId  = req.user?.organizationId;
+            if( !organizationId ){
+                return res.status(400).json({ message: 'Organization ID is required', status: 'error' });
+            }
             const { userId } = req.params;
             if( !userId ){
                 return res.status(400).json({ message: 'User ID are required', status: 'error' });
             }
 
-            await userService.deleteUser( userId as string );
-            return res.status(204);
+            await userService.deleteUser( organizationId as string, userId as string );
+            return res.status(204).send();
         } catch( error ){
             return next( error );
         }

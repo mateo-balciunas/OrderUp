@@ -8,7 +8,7 @@ export class UserService {
     // ============
     // CREATE USER
     // ============
-    async createUser( { email, name, password }: UserTypes.CreateUserRequest): Promise<UserTypes.UserResponse> {
+    async createUser( organizationId: string, { email, name, password }: UserTypes.CreateUserRequest): Promise<UserTypes.UserResponse> {
 
         //Validate user
         const existingUser = await prisma.user.findUnique({
@@ -46,7 +46,7 @@ export class UserService {
     // ============
     // GET USER
     // ============
-    async getUser( userId: string ): Promise<UserTypes.UserResponse> {
+    async getUser( organizationId: string, userId: string ): Promise<UserTypes.UserResponse> {
         //Search for user
         const user = await prisma.user.findUnique({
             where: { id: userId },
@@ -65,7 +65,7 @@ export class UserService {
     // ============
     // LIST USERS
     // ============
-    async listUsers(): Promise<UserTypes.ListUserResponses> {
+    async listUsers( organizationId: string ): Promise<UserTypes.ListUserResponses> {
         //Search for users
         const users = await prisma.user.findMany({
             include: {
@@ -87,7 +87,7 @@ export class UserService {
     // ============
     // UPDATE USER
     // ============
-    async updateUser( userId: string, { email, name, password }: UserTypes.UpdateUserRequest): Promise<UserTypes.UserResponse> {
+    async updateUser( organizationId: string, userId: string, { email, name, password }: UserTypes.UpdateUserRequest): Promise<UserTypes.UserResponse> {
         //Search for user
         const user = await prisma.user.findUnique({
             where: { id: userId },
@@ -125,7 +125,7 @@ export class UserService {
     // ============
     // DELETE USER
     // ============
-    async deleteUser( userId: string ): Promise<UserTypes.DeleteUserRequest> {
+    async deleteUser( organizationId: string, userId: string ): Promise<UserTypes.DeleteUserRequest> {
         //Search for user
         const user = await prisma.user.findUnique({
             where: { id: userId },
