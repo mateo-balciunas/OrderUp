@@ -110,3 +110,30 @@ export interface OrderLineResponse {
 
 export type OrderStatus = 'recieved' | 'confirmed' | 'cancelled'; 
 
+//ORDER STATUS HISTORY
+
+export interface OrderStatusHistoryRequest {
+    orderId: string;
+    previousStatus: string;
+    newStatus: string;
+    reason?: string;
+    userId?: string;
+}
+
+export interface OrderStatusHistoryResponse {
+    id: string;
+    orderId: string;
+    previousStatus: string | null;
+    newStatus: string;
+    reason: string;
+    userId: string | null;
+    metadata: JsonValue;
+    createdAt: Date;
+}
+
+export interface OrderStatusHistoryListResponse {
+    histories: OrderStatusHistoryResponse[];
+    total: number;
+    page: number;
+    limit: number;
+}

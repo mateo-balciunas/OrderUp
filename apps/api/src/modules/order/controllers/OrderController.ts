@@ -96,4 +96,23 @@ export class OrderController {
         }
     }
 
+    //GET /api/v1/:organizationId/orders/:orderId/history
+    async getOrderStatusHistory( req: Request, res: Response, next: NextFunction ) {
+        try {
+            //Extract and validate orderId
+            const { orderId } = req.params;
+            if( !orderId ){
+                return res.status(400).json({ message: 'OrderId is required', status: 'error' });
+            }
+            const organizationId = req.user?.organizationId;
+            if( !organizationId ){
+                return res.status(400).json({ message: 'OrganizationId is required', status: 'error' });
+            }
+            const histories = await orderService.listOrderStatusHistory(orderId as string, organizationId as string);
+            return res.status(200).json(histories);
+        } catch( error ){
+            return next( error );
+        }
+    }
+
 }

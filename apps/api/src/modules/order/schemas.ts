@@ -59,3 +59,15 @@ export const deleteOrderSchema = z.object({
         orderId: z.string().uuid( 'Order ID is required' )
     })
 });
+
+//GET ORDER STATUS HISTORY SCHEMA
+export const getOrderStatusHistorySchema = z.object({
+    params: z.object({
+        organizationId: z.string().uuid( 'Organization ID is required' ),
+        orderId: z.string().uuid('Order ID is required')
+    }),
+    query: z.object({
+        page: z.string().regex(/^\d+$/).transform(Number).optional(),
+        limit: z.string().regex(/^\d+$/).transform(Number).optional()
+    })
+});

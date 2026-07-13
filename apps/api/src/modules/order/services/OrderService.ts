@@ -150,6 +150,14 @@ export class OrderService {
                 }
             }
         });
+        //Create status history
+        await this.createStatusHistrory({
+            orderId: orderId,
+            previousStatus: previousStatus,
+            newStatus: data.status,
+            reason: data.reason || '',
+            userId: data.userId
+        });
 
         return updateOrder;
     }
@@ -174,5 +182,43 @@ export class OrderService {
             id: orderId,
             organizationId: organizationId,
         };
+    }
+
+    // ============
+    //CREATE ORDER STATUS HISTORY
+    //=============
+    private async createStatusHistrory( data: OrderTypes.OrderStatusHistoryRequest ) {
+        //Create status history
+        const statusHistory = await prisma.orderStatusHistory.create({
+            data: {
+                orderId: data.orderId,
+                previousStatus: data.previousStatus,
+                newStatus: data.newStatus,
+                reason: data.reason || '',
+                userId: data.userId || null
+            },
+            include: {
+                order: true,
+            }
+        });
+        return statusHistory;
+    }
+
+    //=============
+    //GET ORDER STATUS HISTORY
+    //=============
+    async listOrderStatusHistory( orderId: string, organizationId: string ): Promise<OrderTypes.OrderStatusHistoryListResponse> {
+        //Validate if order exists
+        const histories = await prisma.orderStatusHistory.findMany({
+            where: { orderId: orderId },
+            orderBy: { createdAt: 'desc' }
+        });
+
+        return {
+            histories: histories,
+            total: histories.length,
+            page: 1,
+            limit: histories.length
+        }
     }
 }

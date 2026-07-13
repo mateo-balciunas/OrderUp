@@ -6,7 +6,8 @@ import {
     getOrderSchema,
     listOrdersSchema,
     updateOrderStatusSchema,
-    deleteOrderSchema
+    deleteOrderSchema,
+    getOrderStatusHistorySchema
 } from "./schemas.js";
 
 const router = Router();
@@ -45,6 +46,13 @@ router.delete(
     '/:organizationId/orders/:orderId',
     validate(deleteOrderSchema),
     orderController.deleteOrder
+);
+
+//GET /api/v1/:organizationId/orders/:orderId/history
+router.get(
+    '/:organizationId/orders/:orderId/history',
+    validate(getOrderStatusHistorySchema),
+    orderController.getOrderStatusHistory
 );
 
 export { router as orderRouter };
